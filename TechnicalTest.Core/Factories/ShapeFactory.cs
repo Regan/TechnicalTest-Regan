@@ -31,7 +31,7 @@ namespace TechnicalTest.Core.Factories
             {
                 case ShapeEnum.Triangle:
                     if (shape.Coordinates.Count != 3) return null;
-                    var triangle = new Triangle(shape.Coordinates[0], shape.Coordinates[1], shape.Coordinates[2]); // improve readability here?
+                    var triangle = new Triangle(shape.Coordinates[ListVertexPositions.TopLeftVertexPos], shape.Coordinates[ListVertexPositions.OuterVertexPos], shape.Coordinates[ListVertexPositions.BottomRightVertex]);
                     return _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
                 case ShapeEnum.Other:
                     return null; // not yet implemented
