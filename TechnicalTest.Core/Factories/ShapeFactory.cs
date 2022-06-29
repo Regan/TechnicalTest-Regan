@@ -14,14 +14,15 @@ namespace TechnicalTest.Core.Factories
 
         public Shape? CalculateCoordinates(ShapeEnum shapeEnum, Grid grid, GridValue gridValue)
         {
-            switch (shapeEnum)
+            // using pattern matching for shapeEnum values, returns shape from service.
+            return shapeEnum switch
             {
-                case ShapeEnum.Triangle:
-                    // TODO: Return shape returned from service.
-	                return new Shape();
-                default:
-                    return null;
-            }
+                ShapeEnum.Triangle =>
+                    _shapeService.ProcessTriangle(grid, gridValue),
+                ShapeEnum.Other => null, // not yet implemented
+                ShapeEnum.None => null, // not yet implemented
+                _ => throw new ArgumentOutOfRangeException(nameof(shapeEnum), shapeEnum, "Out of range, shape not supported.")
+            };
         }
 
         public GridValue? CalculateGridValue(ShapeEnum shapeEnum, Grid grid, Shape shape)
@@ -29,13 +30,14 @@ namespace TechnicalTest.Core.Factories
             switch (shapeEnum)
             {
                 case ShapeEnum.Triangle:
-                    if (shape.Coordinates.Count != 3)
-                        return null;
-
-                    // TODO: Return grid value returned from service.
-                    return new GridValue(0, 0);
-                default:
-                    return null;
+                    if (shape.Coordinates.Count != 3) return null;
+                    var triangle = new Triangle(shape.Coordinates[0], shape.Coordinates[1], shape.Coordinates[2]); // improve readability here?
+                    return _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+                case ShapeEnum.Other:
+                    return null; // not yet implemented
+                case ShapeEnum.None:
+                    return null; // not yet implemented
+                default: throw new ArgumentOutOfRangeException(nameof(shapeEnum), shapeEnum, "Out of range, shape not supported.");
             }
         }
     }
