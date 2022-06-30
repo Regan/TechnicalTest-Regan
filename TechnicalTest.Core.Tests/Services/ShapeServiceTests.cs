@@ -58,7 +58,7 @@ namespace TechnicalTest.Core.Tests.Services
 
             Assert.NotNull(shape);
             Assert.Contains(shape.Coordinates, (c) => c.X == 20 && c.Y == 30);
-            Assert.Contains(shape.Coordinates, (c) => c.X == 20 && c.Y == 30);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 20 && c.Y == 40); // fixed test - was using same value as topleftVert
             Assert.Contains(shape.Coordinates, (c) => c.X == 30 && c.Y == 40);
         }
 
@@ -75,12 +75,68 @@ namespace TechnicalTest.Core.Tests.Services
             Assert.Contains(shape.Coordinates, (c) => c.X == 30 && c.Y == 30);
             Assert.Contains(shape.Coordinates, (c) => c.X == 30 && c.Y == 40);
         }
+        
+        [Fact]
+        public void GivenGridValueF9AndGridSize10WhenProcessingRightTriangleThenCoordinatesAreValid()
+        {
+            var gridValue = new GridValue("F9");
+            var grid = new Grid(10);
+
+            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+
+            Assert.NotNull(shape);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 40 && c.Y == 50);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 40 && c.Y == 60);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 50 && c.Y == 60);
+        }
+        
+        [Fact]
+        public void GivenGridValueF10AndGridSize10WhenProcessingRightTriangleThenCoordinatesAreValid()
+        {
+            var gridValue = new GridValue("F10");
+            var grid = new Grid(10);
+
+            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+
+            Assert.NotNull(shape);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 50 && c.Y == 50);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 50 && c.Y == 60);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 60 && c.Y == 60);
+        }
+        
+        [Fact]
+        public void GivenGridValueF11AndGridSize10WhenProcessingRightTriangleThenCoordinatesAreValid()
+        {
+            var gridValue = new GridValue("F11");
+            var grid = new Grid(10);
+
+            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+
+            Assert.NotNull(shape);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 50 && c.Y == 50);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 50 && c.Y == 60);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 60 && c.Y == 60);
+        }
+
+        [Fact]
+        public void GivenGridValueF12AndGridSize10WhenProcessingRightTriangleThenCoordinatesAreValid()
+        {
+            var gridValue = new GridValue("F12");
+            var grid = new Grid(10);
+
+            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+
+            Assert.NotNull(shape);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 50 && c.Y == 50);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 60 && c.Y == 60);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 60 && c.Y == 60);
+        }
 
         [Fact]
         public void GivenD6TriangleCoordinatesWhenProcessingGridValueThenGridValueIsD6()
         {
             var grid = new Grid(10);
-            var triangle = new Triangle(new(20, 30), new(30, 30), new Coordinate(30, 40));
+            var triangle = new Triangle(new Coordinate(20, 30), new Coordinate(30, 30), new Coordinate(30, 40)); // was missing type
 
             var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
 
@@ -93,7 +149,7 @@ namespace TechnicalTest.Core.Tests.Services
         public void GivenD5TriangleCoordinatesWhenProcessingGridValueThenGridValueIsD5()
         {
             var grid = new Grid(10);
-            var triangle = new Triangle(new(20, 30), new(20, 40), new Coordinate(30, 40));
+            var triangle = new Triangle(new Coordinate(20, 30), new Coordinate(20, 40), new Coordinate(30, 40)); // was missing type
 
             var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
 
