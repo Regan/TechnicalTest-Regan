@@ -64,6 +64,11 @@ namespace TechnicalTest.API.Controllers
 
             var grid = new Grid(calculateCoordinatesRequest.Grid.Size);
             
+            if (grid.Size != 10)
+            {
+                return BadRequest("Only Grid Size 10 is currently supported.");
+            }
+            
             //  calls the Calculate function in the shape factory.
             var shape = _shapeFactory.CalculateCoordinates(shapeEnum, grid, gridValue);
 
@@ -95,17 +100,42 @@ namespace TechnicalTest.API.Controllers
         [HttpPost]
         public IActionResult CalculateGridValue([FromBody]CalculateGridValueDTO gridValueRequest)
         {
-	        // TODO: Get the ShapeEnum and if it is default (ShapeEnum.None) or not triangle, return BadRequest as only Triangle is implemented yet.
+	        // Get the ShapeEnum and if it is default (ShapeEnum.None) or not triangle, return BadRequest as only Triangle is implemented yet.
+            var shapeEnum = (ShapeEnum)gridValueRequest.ShapeType;
+            if (!shapeEnum.Equals(ShapeEnum.Triangle))
+            {
+                if (shapeEnum.Equals(ShapeEnum.None) || shapeEnum.Equals(ShapeEnum.Other))
+                {
+                    return BadRequest("Not yet implemented, only Triangle is supported at the moment.");
 
-            // TODO: Create new Shape with coordinates based on the parameters from the DTO.
+                }
+                return BadRequest("Only Triangle, None or Other is supported.");
+            }
+            
+            // LINQ expression to get vertices and create new coordinate objects and add them to a list.
+            var coordinateList = gridValueRequest.Vertices.Select(vertices => new Coordinate(vertices.x, vertices.y)).ToList();
+            
+            // Create new Shape with coordinates based on the parameters from the DTO.
+            var shape = new Shape(coordinateList);
+            
+            var grid = new Grid(gridValueRequest.Grid.Size);
 
-            // TODO: Call the function in the shape factory to calculate grid value.
+            if (grid.Size != 10)
+            {
+                return BadRequest("Only Grid Size 10 is currently supported.");
+            }
 
-            // TODO: If the GridValue result is null then return BadRequest with an error message.
+            // Call the function in the shape factory to calculate grid value.
+            var gridValue = _shapeFactory.CalculateGridValue(shapeEnum, grid, shape);
 
-            // TODO: Generate a ResponseModel based on the result and return it in Ok();
+            // If the GridValue result is null then return BadRequest with an error message.
 
-            return Ok();
+            if (gridValue == null)
+            {
+                return BadRequest("Calculation Result was null.");
+            }
+            
+            return Ok(new CalculateGridValueResponseDTO(gridValue.Row, gridValue.Column));
         }
     }
 }
