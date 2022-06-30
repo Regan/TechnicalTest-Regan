@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Mvc;
 using TechnicalTest.API.DTOs;
 using TechnicalTest.Core;
 using TechnicalTest.Core.Interfaces;
@@ -37,15 +38,45 @@ namespace TechnicalTest.API.Controllers
         [HttpPost]
         public IActionResult CalculateCoordinates([FromBody]CalculateCoordinatesDTO calculateCoordinatesRequest)
         {
-            // TODO: Get the ShapeEnum and if it is default (ShapeEnum.None) or not triangle, return BadRequest as only Triangle is implemented yet.
+            // Get the ShapeEnum and if it is default (ShapeEnum.None) or not triangle, return BadRequest as only Triangle is implemented yet.
+            var shapeEnum = (ShapeEnum)calculateCoordinatesRequest.ShapeType;
+            if (!shapeEnum.Equals(ShapeEnum.Triangle))
+            {
+                if (shapeEnum.Equals(ShapeEnum.None) || shapeEnum.Equals(ShapeEnum.Other))
+                {
+                    return BadRequest("Not yet implemented, only Triangle is supported at the moment.");
 
-            // TODO: Call the Calculate function in the shape factory.
+                }
+                return BadRequest("Only Triangle, None or Other is supported.");
+            }
+            
+            // checks for supported row and columns.
+            var gridValue = new GridValue(calculateCoordinatesRequest.GridValue);
+            if(!Regex.IsMatch(gridValue.Row,"[a-fA-F]"))
+            {
+                return BadRequest("Only a-f, A-F rows are supported.");
+            }
 
-            // TODO: Return BadRequest with error message if the calculate result is null
+            if (!Enumerable.Range(1, 12).Contains(gridValue.Column))
+            {
+                return BadRequest("Only 1-12 columns are supported.");
+            }
 
-            // TODO: Create ResponseModel with Coordinates and return as OK with responseModel.
+            var grid = new Grid(calculateCoordinatesRequest.Grid.Size);
+            
+            //  calls the Calculate function in the shape factory.
+            var shape = _shapeFactory.CalculateCoordinates(shapeEnum, grid, gridValue);
 
-            return Ok();
+            //  returns BadRequest with error message if the calculate result is null
+            if (shape == null)
+            {
+                return BadRequest("Calculation Result was null");
+            }
+            
+            //  uses linq query to get coordinates from shape, and then creates new DTOs to a list.
+            var coordinateList = shape.Coordinates.Select(coordinate => new CalculateCoordinatesResponseDTO.Coordinate(coordinate.X, coordinate.Y)).ToList();
+            
+            return Ok(coordinateList);
         }
 
         /// <summary>
