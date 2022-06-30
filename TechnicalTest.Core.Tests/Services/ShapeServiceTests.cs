@@ -140,7 +140,7 @@ namespace TechnicalTest.Core.Tests.Services
 
             Assert.NotNull(shape);
             Assert.Contains(shape.Coordinates, (c) => c.X == 50 && c.Y == 50);
-            Assert.Contains(shape.Coordinates, (c) => c.X == 60 && c.Y == 60);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 60 && c.Y == 50);
             Assert.Contains(shape.Coordinates, (c) => c.X == 60 && c.Y == 60);
         }
         
