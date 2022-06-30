@@ -247,5 +247,107 @@ namespace TechnicalTest.Core.Tests.Services
             Assert.Equal("F", gridValue.Row);
         }
         
+        
+        [Fact]
+        public void GivenDotCoordinatesWhenCheckingIsValidShapeThenFalse()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(0, 0), new Coordinate(0, 0));
+
+            var gridValue = _shapeService.isValidShape(grid, triangle);
+
+            Assert.False(gridValue);
+        }
+        
+        [Fact]
+        public void GivenXLineCoordinatesWhenCheckingIsValidShapeThenFalse()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(10, 0), new Coordinate(20, 0));
+
+            var gridValue = _shapeService.isValidShape(grid, triangle);
+
+            Assert.False(gridValue);
+        }
+        
+        [Fact]
+        public void GivenA1CoordinatesWhenCheckingIsValidShapeThenTrue()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(0, 10), new Coordinate(10, 10)); 
+
+            var gridValue = _shapeService.isValidShape(grid, triangle);
+
+            Assert.True(gridValue);
+        }
+        
+        [Fact]
+        public void GivenD5CoordinatesWhenCheckingIsValidShapeThenTrue()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(20, 30), new Coordinate(20, 40), new Coordinate(30, 40));
+
+            var gridValue = _shapeService.isValidShape(grid, triangle);
+
+            Assert.True(gridValue);
+        }
+        
+        [Fact]
+        public void GivenD6CoordinatesWhenCheckingIsValidShapeThenTrue()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(20, 30), new Coordinate(30, 30), new Coordinate(30, 40));
+
+            var gridValue = _shapeService.isValidShape(grid, triangle);
+
+            Assert.True(gridValue);
+        }
+        
+        [Fact]
+        public void GivenF12CoordinatesWhenCheckingIsValidShapeThenTrue()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(50, 50), new Coordinate(60, 50), new Coordinate(60, 60));
+
+            var gridValue = _shapeService.isValidShape(grid, triangle);
+
+            Assert.True(gridValue);
+        }
+        
+        [Fact]
+        public void GivenDotCoordinatesWhenProcessingGridValueThenGridValueIsInvalid()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(0, 0), new Coordinate(0, 0));
+
+            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+
+            Assert.Null(gridValue);
+        }
+        
+        [Fact]
+        public void GivenStraightXLineCoordinatesWhenProcessingGridValueThenGridValueIsInvalid()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(10, 0), new Coordinate(20, 0));
+
+            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+
+            Assert.Null(gridValue);
+        }
+        
+        [Fact]
+        public void GivenStraightYLineCoordinatesWhenProcessingGridValueThenGridValueIsInvalid()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(0, 10), new Coordinate(0, 10), new Coordinate(20, 0));
+
+            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+
+            Assert.Null(gridValue);
+        }
+        
+        
+        
     }
 }
