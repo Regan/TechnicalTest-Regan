@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using TechnicalTest.API.DTOs;
+using TechnicalTest.API.Utility;
 using TechnicalTest.Core;
 using TechnicalTest.Core.Interfaces;
 using TechnicalTest.Core.Models;
@@ -114,7 +115,14 @@ namespace TechnicalTest.API.Controllers
             
             // LINQ expression to get vertices and create new coordinate objects and add them to a list.
             var coordinateList = gridValueRequest.Vertices.Select(vertices => new Coordinate(vertices.x, vertices.y)).ToList();
-            
+
+            var isValidTriangle = Util.IsValidTriangle(coordinateList);
+
+            if (!isValidTriangle)
+            {
+                return BadRequest("Not a valid Triangle, please enter valid vertices.");
+            }
+
             // Create new Shape with coordinates based on the parameters from the DTO.
             var shape = new Shape(coordinateList);
             
@@ -127,14 +135,14 @@ namespace TechnicalTest.API.Controllers
 
             // Call the function in the shape factory to calculate grid value.
             var gridValue = _shapeFactory.CalculateGridValue(shapeEnum, grid, shape);
-
+            
             // If the GridValue result is null then return BadRequest with an error message.
 
             if (gridValue == null)
             {
                 return BadRequest("Calculation Result was null.");
             }
-            
+
             return Ok(new CalculateGridValueResponseDTO(gridValue.Row, gridValue.Column));
         }
     }
