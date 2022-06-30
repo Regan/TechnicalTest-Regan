@@ -1,7 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using TechnicalTest.API.DTOs;
-using TechnicalTest.API.Utility;
 using TechnicalTest.Core;
 using TechnicalTest.Core.Interfaces;
 using TechnicalTest.Core.Models;
