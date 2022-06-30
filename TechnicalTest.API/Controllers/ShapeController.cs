@@ -112,18 +112,26 @@ namespace TechnicalTest.API.Controllers
                 return BadRequest("Only Triangle, None or Other is supported.");
             }
             
-            // LINQ expression to get vertices and create new coordinate objects and add them to a list.
-            var coordinateList = gridValueRequest.Vertices.Select(vertices => new Coordinate(vertices.x, vertices.y)).ToList();
-
-            // Create new Shape with coordinates based on the parameters from the DTO.
-            var shape = new Shape(coordinateList);
-            
             var grid = new Grid(gridValueRequest.Grid.Size);
 
             if (grid.Size != 10)
             {
                 return BadRequest("Only Grid Size 10 is currently supported.");
             }
+            
+            // only 60 pixels are supported.
+            var isSupportedPixelRange = gridValueRequest.Vertices.Any(vertices => vertices.x is > 60 or < 0 || vertices.y is > 60 or < 0);
+
+            if (isSupportedPixelRange)
+            {
+                return BadRequest("Only 0-60 vertices (pixels) are currently supported.");
+            }
+
+            // LINQ expression to get vertices and create new coordinate objects and add them to a list.
+            var coordinateList = gridValueRequest.Vertices.Select(vertices => new Coordinate(vertices.x, vertices.y)).ToList();
+
+            // Create new Shape with coordinates based on the parameters from the DTO.
+            var shape = new Shape(coordinateList);
 
             // Call the function in the shape factory to calculate grid value.
             var gridValue = _shapeFactory.CalculateGridValue(shapeEnum, grid, shape);
