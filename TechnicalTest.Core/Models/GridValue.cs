@@ -4,10 +4,16 @@
     {
         public GridValue(string gridValue)
         {
-            if (string.IsNullOrEmpty(gridValue) || gridValue.Length != 2) return;
+            // originally was max length = 2. e.g. could only do A1-A9
+            if (string.IsNullOrEmpty(gridValue) || gridValue.Length > 3) return;
 
             Row = gridValue[..1];
             Column = int.Parse(gridValue[1..]);
+            /*
+             * range of values.
+             * Row = First string value.
+             * Column = everything after first string value.
+             */
         }
 
 
@@ -22,6 +28,6 @@
 
         public int Column { get; set; }
 
-        public int GetNumericRow() => Row != null ? char.ToUpper(char.Parse(Row)) - 64 : 0;
+        public int GetNumericRow() => Row != null ? char.ToUpper(char.Parse(Row)) - 64 : 0; // converts letter to numeric value. e.g. A = 1, B = 2. etc
     }
 }
