@@ -111,9 +111,9 @@ namespace TechnicalTest.Core.Tests.Services
             var shape = _shapeService.ProcessTriangle(grid, gridValue);
 
             Assert.NotNull(shape);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 40 && c.Y == 50);
             Assert.Contains(shape.Coordinates, (c) => c.X == 50 && c.Y == 50);
             Assert.Contains(shape.Coordinates, (c) => c.X == 50 && c.Y == 60);
-            Assert.Contains(shape.Coordinates, (c) => c.X == 60 && c.Y == 60);
         }
         
         [Fact]
@@ -212,7 +212,7 @@ namespace TechnicalTest.Core.Tests.Services
         public void GivenF10TriangleCoordinatesWhenProcessingGridValueThenGridValueIsF10()
         {
             var grid = new Grid(10);
-            var triangle = new Triangle(new Coordinate(40, 50), new Coordinate(50, 60), new Coordinate(50, 60));
+            var triangle = new Triangle(new Coordinate(40, 50), new Coordinate(50, 50), new Coordinate(50, 60));
 
             var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
 
@@ -238,7 +238,7 @@ namespace TechnicalTest.Core.Tests.Services
         public void GivenF12TriangleCoordinatesWhenProcessingGridValueThenGridValueIsF12()
         {
             var grid = new Grid(10);
-            var triangle = new Triangle(new Coordinate(50, 50), new Coordinate(60, 60), new Coordinate(60, 60));
+            var triangle = new Triangle(new Coordinate(50, 50), new Coordinate(60, 50), new Coordinate(60, 60));
 
             var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
 

@@ -11,17 +11,6 @@ namespace TechnicalTest.Core.Services
             const int adjustPosition = 1;
             if (gridValue.Column % 2 == 0) // checks if column is even, if so is the top-right triangle.
             {
-                if (gridValue.Column == 10) // number 10 needs to use a different formula.
-                {
-                    topLeftVertex = new Coordinate(((gridValue.Column / 2)) * grid.Size,
-                        (gridValue.GetNumericRow() - adjustPosition) * grid.Size);
-                    outerVertex = new Coordinate((gridValue.Column / 2) * grid.Size,
-                        gridValue.GetNumericRow() * grid.Size);
-                    bottomRightVertex = new Coordinate((gridValue.Column / 2 + adjustPosition) * grid.Size,
-                        gridValue.GetNumericRow() * grid.Size);
-                    return new Triangle(topLeftVertex, outerVertex, bottomRightVertex);
-                }
-
                 topLeftVertex = new Coordinate(((gridValue.Column / 2) - adjustPosition) * grid.Size,
                     (gridValue.GetNumericRow() - adjustPosition) * grid.Size);
                 outerVertex = new Coordinate((gridValue.Column / 2) * grid.Size,
