@@ -6,7 +6,7 @@ public static class Util
 {
     public static bool IsValidTriangle(List<Coordinate> triangleCoordinates)
     {
-        if (triangleCoordinates.Count != 2)
+        if (triangleCoordinates.Count != 3)
         {
             return false;
         }
