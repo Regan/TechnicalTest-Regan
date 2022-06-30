@@ -42,6 +42,14 @@ namespace TechnicalTest.Core.Services
 
         public GridValue ProcessGridValueFromTriangularShape(Grid grid, Triangle triangle)
         {
+
+            bool isValid = isValidShape(grid, triangle);
+
+            if (!isValid)
+            {
+                return null!;
+            }
+
             // highest y value tell us the row.
             int rowLetterValue =
                 Math.Max(Math.Max(triangle.TopLeftVertex.Y, triangle.OuterVertex.Y), triangle.BottomRightVertex.Y) /
@@ -74,6 +82,21 @@ namespace TechnicalTest.Core.Services
             }
 
             return new GridValue(rowLetterValue, columnValue);
+        }
+
+        public bool isValidShape(Grid grid, Triangle triangle)
+        {
+            if (triangle.Coordinates.Count != 3)
+            {
+                return false;
+            }
+        
+            // calculates the area of the triangle. uses shoelace formula.
+            var result = triangle.TopLeftVertex.X * (triangle.OuterVertex.Y - triangle.BottomRightVertex.Y) +
+                         triangle.OuterVertex.X * (triangle.BottomRightVertex.Y - triangle.TopLeftVertex.Y) +
+                         triangle.BottomRightVertex.X * (triangle.TopLeftVertex.Y - triangle.OuterVertex.Y);
+
+            return result != 0;
         }
     }
 }

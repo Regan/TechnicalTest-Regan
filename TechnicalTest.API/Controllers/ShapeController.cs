@@ -116,13 +116,6 @@ namespace TechnicalTest.API.Controllers
             // LINQ expression to get vertices and create new coordinate objects and add them to a list.
             var coordinateList = gridValueRequest.Vertices.Select(vertices => new Coordinate(vertices.x, vertices.y)).ToList();
 
-            var isValidTriangle = Util.IsValidTriangle(coordinateList);
-
-            if (!isValidTriangle)
-            {
-                return BadRequest("Not a valid Triangle, please enter valid vertices.");
-            }
-
             // Create new Shape with coordinates based on the parameters from the DTO.
             var shape = new Shape(coordinateList);
             
