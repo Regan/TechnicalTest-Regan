@@ -75,7 +75,19 @@ namespace TechnicalTest.Core.Tests.Services
             Assert.Contains(shape.Coordinates, (c) => c.X == 30 && c.Y == 30);
             Assert.Contains(shape.Coordinates, (c) => c.X == 30 && c.Y == 40);
         }
-        
+        [Fact]
+        public void GivenGridValueF8AndGridSize10WhenProcessingRightTriangleThenCoordinatesAreValid()
+        {
+            var gridValue = new GridValue("F8");
+            var grid = new Grid(10);
+
+            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+
+            Assert.NotNull(shape);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 30 && c.Y == 50);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 40 && c.Y == 50);
+            Assert.Contains(shape.Coordinates, (c) => c.X == 40 && c.Y == 60);
+        }
         [Fact]
         public void GivenGridValueF9AndGridSize10WhenProcessingRightTriangleThenCoordinatesAreValid()
         {
@@ -146,6 +158,19 @@ namespace TechnicalTest.Core.Tests.Services
         }
 
         [Fact]
+        public void GivenA1TriangleCoordinatesWhenProcessingGridValueThenGridValueIsA1()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(0, 10), new Coordinate(10, 10)); // was missing type
+
+            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+
+            Assert.NotNull(gridValue);
+            Assert.Equal(1, gridValue.Column);
+            Assert.Equal("A", gridValue.Row);
+        }
+        
+        [Fact]
         public void GivenD5TriangleCoordinatesWhenProcessingGridValueThenGridValueIsD5()
         {
             var grid = new Grid(10);
@@ -157,5 +182,70 @@ namespace TechnicalTest.Core.Tests.Services
             Assert.Equal(5, gridValue.Column);
             Assert.Equal("D", gridValue.Row);
         }
+        
+        [Fact]
+        public void GivenF8TriangleCoordinatesWhenProcessingGridValueThenGridValueIsF8()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(30, 50), new Coordinate(40, 50), new Coordinate(40, 60)); // was missing cord type
+
+            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+
+            Assert.NotNull(gridValue);
+            Assert.Equal(8, gridValue.Column);
+            Assert.Equal("F", gridValue.Row);
+        }
+        
+        [Fact]
+        public void GivenF9TriangleCoordinatesWhenProcessingGridValueThenGridValueIsF9()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(40, 50), new Coordinate(40, 60), new Coordinate(50, 60)); // was missing cord type
+
+            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+
+            Assert.NotNull(gridValue);
+            Assert.Equal(9, gridValue.Column);
+            Assert.Equal("F", gridValue.Row);
+        }
+        [Fact]
+        public void GivenF10TriangleCoordinatesWhenProcessingGridValueThenGridValueIsF10()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(40, 50), new Coordinate(50, 60), new Coordinate(50, 60)); // was missing cord type
+
+            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+
+            Assert.NotNull(gridValue);
+            Assert.Equal(10, gridValue.Column);
+            Assert.Equal("F", gridValue.Row);
+        }
+
+        [Fact]
+        public void GivenF11TriangleCoordinatesWhenProcessingGridValueThenGridValueIsF11()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(50, 50), new Coordinate(50, 60), new Coordinate(60, 60)); // was missing cord type
+
+            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+
+            Assert.NotNull(gridValue);
+            Assert.Equal(11, gridValue.Column);
+            Assert.Equal("F", gridValue.Row);
+        }
+        
+        [Fact]
+        public void GivenF12TriangleCoordinatesWhenProcessingGridValueThenGridValueIsF12()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(50, 50), new Coordinate(60, 60), new Coordinate(60, 60)); // was missing cord type
+
+            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+
+            Assert.NotNull(gridValue);
+            Assert.Equal(12, gridValue.Column);
+            Assert.Equal("F", gridValue.Row);
+        }
+        
     }
 }
