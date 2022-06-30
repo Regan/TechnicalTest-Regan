@@ -143,6 +143,19 @@ namespace TechnicalTest.Core.Tests.Services
             Assert.Contains(shape.Coordinates, (c) => c.X == 60 && c.Y == 60);
             Assert.Contains(shape.Coordinates, (c) => c.X == 60 && c.Y == 60);
         }
+        
+        [Fact]
+        public void GivenD5TriangleCoordinatesWhenProcessingGridValueThenGridValueIsD5()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(20, 30), new Coordinate(20, 40), new Coordinate(30, 40)); // was missing type
+
+            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+
+            Assert.NotNull(gridValue);
+            Assert.Equal(5, gridValue.Column);
+            Assert.Equal("D", gridValue.Row);
+        }
 
         [Fact]
         public void GivenD6TriangleCoordinatesWhenProcessingGridValueThenGridValueIsD6()
@@ -161,7 +174,7 @@ namespace TechnicalTest.Core.Tests.Services
         public void GivenA1TriangleCoordinatesWhenProcessingGridValueThenGridValueIsA1()
         {
             var grid = new Grid(10);
-            var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(0, 10), new Coordinate(10, 10)); // was missing type
+            var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(0, 10), new Coordinate(10, 10)); 
 
             var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
 
@@ -169,25 +182,12 @@ namespace TechnicalTest.Core.Tests.Services
             Assert.Equal(1, gridValue.Column);
             Assert.Equal("A", gridValue.Row);
         }
-        
-        [Fact]
-        public void GivenD5TriangleCoordinatesWhenProcessingGridValueThenGridValueIsD5()
-        {
-            var grid = new Grid(10);
-            var triangle = new Triangle(new Coordinate(20, 30), new Coordinate(20, 40), new Coordinate(30, 40)); // was missing type
 
-            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
-
-            Assert.NotNull(gridValue);
-            Assert.Equal(5, gridValue.Column);
-            Assert.Equal("D", gridValue.Row);
-        }
-        
         [Fact]
         public void GivenF8TriangleCoordinatesWhenProcessingGridValueThenGridValueIsF8()
         {
             var grid = new Grid(10);
-            var triangle = new Triangle(new Coordinate(30, 50), new Coordinate(40, 50), new Coordinate(40, 60)); // was missing cord type
+            var triangle = new Triangle(new Coordinate(30, 50), new Coordinate(40, 50), new Coordinate(40, 60));
 
             var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
 
@@ -200,7 +200,7 @@ namespace TechnicalTest.Core.Tests.Services
         public void GivenF9TriangleCoordinatesWhenProcessingGridValueThenGridValueIsF9()
         {
             var grid = new Grid(10);
-            var triangle = new Triangle(new Coordinate(40, 50), new Coordinate(40, 60), new Coordinate(50, 60)); // was missing cord type
+            var triangle = new Triangle(new Coordinate(40, 50), new Coordinate(40, 60), new Coordinate(50, 60));
 
             var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
 
@@ -212,7 +212,7 @@ namespace TechnicalTest.Core.Tests.Services
         public void GivenF10TriangleCoordinatesWhenProcessingGridValueThenGridValueIsF10()
         {
             var grid = new Grid(10);
-            var triangle = new Triangle(new Coordinate(40, 50), new Coordinate(50, 60), new Coordinate(50, 60)); // was missing cord type
+            var triangle = new Triangle(new Coordinate(40, 50), new Coordinate(50, 60), new Coordinate(50, 60));
 
             var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
 
@@ -225,7 +225,7 @@ namespace TechnicalTest.Core.Tests.Services
         public void GivenF11TriangleCoordinatesWhenProcessingGridValueThenGridValueIsF11()
         {
             var grid = new Grid(10);
-            var triangle = new Triangle(new Coordinate(50, 50), new Coordinate(50, 60), new Coordinate(60, 60)); // was missing cord type
+            var triangle = new Triangle(new Coordinate(50, 50), new Coordinate(50, 60), new Coordinate(60, 60));
 
             var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
 
@@ -238,7 +238,7 @@ namespace TechnicalTest.Core.Tests.Services
         public void GivenF12TriangleCoordinatesWhenProcessingGridValueThenGridValueIsF12()
         {
             var grid = new Grid(10);
-            var triangle = new Triangle(new Coordinate(50, 50), new Coordinate(60, 60), new Coordinate(60, 60)); // was missing cord type
+            var triangle = new Triangle(new Coordinate(50, 50), new Coordinate(60, 60), new Coordinate(60, 60));
 
             var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
 
