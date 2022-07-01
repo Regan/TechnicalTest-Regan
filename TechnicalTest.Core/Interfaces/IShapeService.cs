@@ -8,6 +8,6 @@ namespace TechnicalTest.Core.Interfaces
 
         GridValue ProcessGridValueFromTriangularShape(Grid grid, Triangle triangle);
 
-        bool isValidShape(Grid grid, Triangle triangle);
+        bool IsValidShape(Triangle triangle);
     }
 }

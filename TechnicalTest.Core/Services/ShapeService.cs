@@ -32,7 +32,7 @@ namespace TechnicalTest.Core.Services
         public GridValue ProcessGridValueFromTriangularShape(Grid grid, Triangle triangle)
         {
 
-            bool isValid = isValidShape(grid, triangle);
+            bool isValid = IsValidShape(triangle);
 
             if (!isValid)
             {
@@ -73,7 +73,7 @@ namespace TechnicalTest.Core.Services
             return new GridValue(rowLetterValue, columnValue);
         }
 
-        public bool isValidShape(Grid grid, Triangle triangle)
+        public bool IsValidShape(Triangle triangle)
         {
             if (triangle.Coordinates.Count != 3)
             {

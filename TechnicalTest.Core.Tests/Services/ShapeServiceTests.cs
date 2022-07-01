@@ -254,7 +254,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(0, 0), new Coordinate(0, 0));
 
-            var gridValue = _shapeService.isValidShape(grid, triangle);
+            var gridValue = _shapeService.IsValidShape(triangle);
 
             Assert.False(gridValue);
         }
@@ -265,7 +265,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(10, 0), new Coordinate(20, 0));
 
-            var gridValue = _shapeService.isValidShape(grid, triangle);
+            var gridValue = _shapeService.IsValidShape(triangle);
 
             Assert.False(gridValue);
         }
@@ -276,7 +276,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(0, 10), new Coordinate(10, 10)); 
 
-            var gridValue = _shapeService.isValidShape(grid, triangle);
+            var gridValue = _shapeService.IsValidShape(triangle);
 
             Assert.True(gridValue);
         }
@@ -287,7 +287,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(20, 30), new Coordinate(20, 40), new Coordinate(30, 40));
 
-            var gridValue = _shapeService.isValidShape(grid, triangle);
+            var gridValue = _shapeService.IsValidShape(triangle);
 
             Assert.True(gridValue);
         }
@@ -298,7 +298,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(20, 30), new Coordinate(30, 30), new Coordinate(30, 40));
 
-            var gridValue = _shapeService.isValidShape(grid, triangle);
+            var gridValue = _shapeService.IsValidShape(triangle);
 
             Assert.True(gridValue);
         }
@@ -309,7 +309,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(50, 50), new Coordinate(60, 50), new Coordinate(60, 60));
 
-            var gridValue = _shapeService.isValidShape(grid, triangle);
+            var gridValue = _shapeService.IsValidShape(triangle);
 
             Assert.True(gridValue);
         }
