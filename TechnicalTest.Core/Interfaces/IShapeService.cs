@@ -7,5 +7,7 @@ namespace TechnicalTest.Core.Interfaces
         Shape ProcessShape(Grid grid, GridValue gridValue);
 
         GridValue ProcessGridValue(Grid grid, Shape shape);
+
+        bool IsValidShape(Shape shape);
     }
 }

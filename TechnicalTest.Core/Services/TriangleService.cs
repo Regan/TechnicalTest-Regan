@@ -35,7 +35,7 @@ namespace TechnicalTest.Core.Services
                 shape.Coordinates[ListVertexPositions.OuterVertexPos],
                 shape.Coordinates[ListVertexPositions.BottomRightVertex]);
             
-            if (!IsValidTriangle(triangle))
+            if (!IsValidShape(triangle))
             {
                 return null;
             }
@@ -73,8 +73,9 @@ namespace TechnicalTest.Core.Services
             return new GridValue(rowLetterValue, columnValue);
         }
 
-        public bool IsValidTriangle(Triangle triangle)
+        public bool IsValidShape(Shape shape)
         {
+            var triangle = (Triangle) shape;
             // calculates the area of the triangle. uses shoelace formula.
             var result = triangle.TopLeftVertex.X * (triangle.OuterVertex.Y - triangle.BottomRightVertex.Y) +
                          triangle.OuterVertex.X * (triangle.BottomRightVertex.Y - triangle.TopLeftVertex.Y) +

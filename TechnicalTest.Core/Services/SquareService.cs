@@ -14,5 +14,9 @@ public class SquareService : IShapeService
     {
         throw new NotImplementedException();
     }
-    
+
+    public bool IsValidShape(Shape shape)
+    {
+        throw new NotImplementedException();
+    }
 }
