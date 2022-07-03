@@ -39,10 +39,8 @@ namespace TechnicalTest.Core.Services
                 return null!;
             }
 
-            // highest y value tell us the row.
-            int rowLetterValue =
-                Math.Max(Math.Max(triangle.TopLeftVertex.Y, triangle.OuterVertex.Y), triangle.BottomRightVertex.Y) /
-                grid.Size;
+            // bottom right vertex will always give us row.
+            int rowLetterValue = triangle.BottomRightVertex.Y / grid.Size;
 
             int firstValue;
             int secondValue;
