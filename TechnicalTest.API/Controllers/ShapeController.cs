@@ -81,7 +81,7 @@ namespace TechnicalTest.API.Controllers
             //  uses linq query to get coordinates from shape, and then creates new DTOs to a list.
             var coordinateList = shape.Coordinates.Select(coordinate => new CalculateCoordinatesResponseDTO.Coordinate(coordinate.X, coordinate.Y)).ToList();
             
-            return Ok(coordinateList);
+            return Ok(new CalculateCoordinatesResponseDTO(coordinateList));
         }
 
         /// <summary>
