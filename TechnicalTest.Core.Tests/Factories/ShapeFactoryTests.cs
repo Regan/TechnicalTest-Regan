@@ -24,7 +24,7 @@ namespace TechnicalTest.Core.Tests.Factories
             var gridValue = new GridValue("A1");
             var shapeEnum = ShapeEnum.Triangle;
 
-            _shapeService.Setup(x => x.ProcessTriangle(It.IsAny<Grid>(), It.IsAny<GridValue>()))
+            _shapeService.Setup(x => x.ProcessShape(It.IsAny<Grid>(), It.IsAny<GridValue>()))
                 .Returns(expectedResult);
             var shapeFactory = new ShapeFactory(_shapeService.Object);
             var actualResult = shapeFactory.CalculateCoordinates(shapeEnum, grid, gridValue);
@@ -46,12 +46,12 @@ namespace TechnicalTest.Core.Tests.Factories
             var gridValue = new GridValue("A1");
             var shapeEnum = ShapeEnum.Triangle;
 
-            _shapeService.Setup(x => x.ProcessTriangle(It.IsAny<Grid>(), It.IsAny<GridValue>()))
+            _shapeService.Setup(x => x.ProcessShape(It.IsAny<Grid>(), It.IsAny<GridValue>()))
                 .Returns(expectedResult);
             var shapeFactory = new ShapeFactory(_shapeService.Object);
             shapeFactory.CalculateCoordinates(shapeEnum, grid, gridValue);
 
-            _shapeService.Verify(x => x.ProcessTriangle(grid, gridValue));
+            _shapeService.Verify(x => x.ProcessShape(grid, gridValue));
             _shapeService.VerifyNoOtherCalls();
         }
 
@@ -61,7 +61,7 @@ namespace TechnicalTest.Core.Tests.Factories
             var expectedResult = new Shape(new List<Coordinate>
             {
                 new(0, 0),
-                new(10, 10),
+                new(10, 0),  // was incorrect value for A2
                 new(10, 10)
             });
 
@@ -69,7 +69,7 @@ namespace TechnicalTest.Core.Tests.Factories
             var gridValue = new GridValue("A2");
             var shapeEnum = ShapeEnum.Triangle;
 
-            _shapeService.Setup(x => x.ProcessTriangle(It.IsAny<Grid>(), It.IsAny<GridValue>()))
+            _shapeService.Setup(x => x.ProcessShape(It.IsAny<Grid>(), It.IsAny<GridValue>()))
                 .Returns(expectedResult);
             var shapeFactory = new ShapeFactory(_shapeService.Object);
             var actualResult = shapeFactory.CalculateCoordinates(shapeEnum, grid, gridValue);
@@ -83,7 +83,7 @@ namespace TechnicalTest.Core.Tests.Factories
             var expectedResult = new Shape(new List<Coordinate>
             {
                 new(0, 0),
-                new(10, 10),
+                new(10, 0),
                 new(10, 10)
             });
 
@@ -91,12 +91,12 @@ namespace TechnicalTest.Core.Tests.Factories
             var gridValue = new GridValue("A2");
             var shapeEnum = ShapeEnum.Triangle;
 
-            _shapeService.Setup(x => x.ProcessTriangle(It.IsAny<Grid>(), It.IsAny<GridValue>()))
+            _shapeService.Setup(x => x.ProcessShape(It.IsAny<Grid>(), It.IsAny<GridValue>()))
                 .Returns(expectedResult);
             var shapeFactory = new ShapeFactory(_shapeService.Object);
             shapeFactory.CalculateCoordinates(shapeEnum, grid, gridValue);
 
-            _shapeService.Verify(x => x.ProcessTriangle(grid, gridValue));
+            _shapeService.Verify(x => x.ProcessShape(grid, gridValue));
             _shapeService.VerifyNoOtherCalls();
         }
 
@@ -133,10 +133,10 @@ namespace TechnicalTest.Core.Tests.Factories
         {
             var expectedResult = new GridValue("A1");
             var grid = new Grid(10);
-            var shape = new Shape(new List<Coordinate> { new(0, 0), new(0, 0), new(10, 10) });
+            var shape = new Shape(new List<Coordinate> { new(0, 0), new(0, 10), new(10, 10) }); // was incorrect values for A1
             var shapeEnum = ShapeEnum.Triangle;
 
-            _shapeService.Setup(x => x.ProcessGridValueFromTriangularShape(It.IsAny<Grid>(), It.IsAny<Triangle>()))
+            _shapeService.Setup(x => x.ProcessGridValue(It.IsAny<Grid>(), It.IsAny<Shape>()))
                 .Returns(expectedResult);
 
             var shapeFactory = new ShapeFactory(_shapeService.Object);

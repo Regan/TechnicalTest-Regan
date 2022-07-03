@@ -4,9 +4,9 @@ using Xunit;
 
 namespace TechnicalTest.Core.Tests.Services
 {
-    public class ShapeServiceTests
+    public class TriangleServiceTests
     {
-        private readonly ShapeService _shapeService = new();
+        private readonly TriangleService _triangleService = new();
 
         [Fact]
         public void GivenGridValueA1WhenProcessingLeftTriangleThenNumberOfCoordinatesIs3()
@@ -14,7 +14,7 @@ namespace TechnicalTest.Core.Tests.Services
             var gridValue = new GridValue("A1");
             var grid = new Grid(10);
 
-            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+            var shape = _triangleService.ProcessShape(grid, gridValue);
 
             Assert.NotNull(shape);
             Assert.Equal(3, shape.Coordinates.Count);
@@ -26,7 +26,7 @@ namespace TechnicalTest.Core.Tests.Services
             var gridValue = new GridValue("A1");
             var grid = new Grid(10);
 
-            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+            var shape = _triangleService.ProcessShape(grid, gridValue);
 
             Assert.NotNull(shape);
             Assert.Contains(shape.Coordinates, (c) => c.X == 0 && c.Y == 0);
@@ -40,7 +40,7 @@ namespace TechnicalTest.Core.Tests.Services
             var gridValue = new GridValue("A2");
             var grid = new Grid(10);
 
-            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+            var shape = _triangleService.ProcessShape(grid, gridValue);
 
             Assert.NotNull(shape);
             Assert.Contains(shape.Coordinates, (c) => c.X == 0 && c.Y == 0);
@@ -54,7 +54,7 @@ namespace TechnicalTest.Core.Tests.Services
             var gridValue = new GridValue("D5");
             var grid = new Grid(10);
 
-            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+            var shape = _triangleService.ProcessShape(grid, gridValue);
 
             Assert.NotNull(shape);
             Assert.Contains(shape.Coordinates, (c) => c.X == 20 && c.Y == 30);
@@ -68,7 +68,7 @@ namespace TechnicalTest.Core.Tests.Services
             var gridValue = new GridValue("D6");
             var grid = new Grid(10);
 
-            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+            var shape = _triangleService.ProcessShape(grid, gridValue);
 
             Assert.NotNull(shape);
             Assert.Contains(shape.Coordinates, (c) => c.X == 20 && c.Y == 30);
@@ -81,7 +81,7 @@ namespace TechnicalTest.Core.Tests.Services
             var gridValue = new GridValue("F8");
             var grid = new Grid(10);
 
-            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+            var shape = _triangleService.ProcessShape(grid, gridValue);
 
             Assert.NotNull(shape);
             Assert.Contains(shape.Coordinates, (c) => c.X == 30 && c.Y == 50);
@@ -94,7 +94,7 @@ namespace TechnicalTest.Core.Tests.Services
             var gridValue = new GridValue("F9");
             var grid = new Grid(10);
 
-            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+            var shape = _triangleService.ProcessShape(grid, gridValue);
 
             Assert.NotNull(shape);
             Assert.Contains(shape.Coordinates, (c) => c.X == 40 && c.Y == 50);
@@ -108,7 +108,7 @@ namespace TechnicalTest.Core.Tests.Services
             var gridValue = new GridValue("F10");
             var grid = new Grid(10);
 
-            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+            var shape = _triangleService.ProcessShape(grid, gridValue);
 
             Assert.NotNull(shape);
             Assert.Contains(shape.Coordinates, (c) => c.X == 40 && c.Y == 50);
@@ -122,7 +122,7 @@ namespace TechnicalTest.Core.Tests.Services
             var gridValue = new GridValue("F11");
             var grid = new Grid(10);
 
-            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+            var shape = _triangleService.ProcessShape(grid, gridValue);
 
             Assert.NotNull(shape);
             Assert.Contains(shape.Coordinates, (c) => c.X == 50 && c.Y == 50);
@@ -136,7 +136,7 @@ namespace TechnicalTest.Core.Tests.Services
             var gridValue = new GridValue("F12");
             var grid = new Grid(10);
 
-            var shape = _shapeService.ProcessTriangle(grid, gridValue);
+            var shape = _triangleService.ProcessShape(grid, gridValue);
 
             Assert.NotNull(shape);
             Assert.Contains(shape.Coordinates, (c) => c.X == 50 && c.Y == 50);
@@ -150,7 +150,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(20, 30), new Coordinate(20, 40), new Coordinate(30, 40)); // was missing type
 
-            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+            var gridValue = _triangleService.ProcessGridValue(grid, triangle);
 
             Assert.NotNull(gridValue);
             Assert.Equal(5, gridValue.Column);
@@ -163,7 +163,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(20, 30), new Coordinate(30, 30), new Coordinate(30, 40)); // was missing type
 
-            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+            var gridValue = _triangleService.ProcessGridValue(grid, triangle);
 
             Assert.NotNull(gridValue);
             Assert.Equal(6, gridValue.Column);
@@ -176,7 +176,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(0, 10), new Coordinate(10, 10)); 
 
-            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+            var gridValue = _triangleService.ProcessGridValue(grid, triangle);
 
             Assert.NotNull(gridValue);
             Assert.Equal(1, gridValue.Column);
@@ -189,7 +189,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(30, 50), new Coordinate(40, 50), new Coordinate(40, 60));
 
-            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+            var gridValue = _triangleService.ProcessGridValue(grid, triangle);
 
             Assert.NotNull(gridValue);
             Assert.Equal(8, gridValue.Column);
@@ -202,7 +202,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(40, 50), new Coordinate(40, 60), new Coordinate(50, 60));
 
-            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+            var gridValue = _triangleService.ProcessGridValue(grid, triangle);
 
             Assert.NotNull(gridValue);
             Assert.Equal(9, gridValue.Column);
@@ -214,7 +214,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(40, 50), new Coordinate(50, 50), new Coordinate(50, 60));
 
-            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+            var gridValue = _triangleService.ProcessGridValue(grid, triangle);
 
             Assert.NotNull(gridValue);
             Assert.Equal(10, gridValue.Column);
@@ -227,7 +227,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(50, 50), new Coordinate(50, 60), new Coordinate(60, 60));
 
-            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+            var gridValue = _triangleService.ProcessGridValue(grid, triangle);
 
             Assert.NotNull(gridValue);
             Assert.Equal(11, gridValue.Column);
@@ -240,7 +240,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(50, 50), new Coordinate(60, 50), new Coordinate(60, 60));
 
-            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+            var gridValue = _triangleService.ProcessGridValue(grid, triangle);
 
             Assert.NotNull(gridValue);
             Assert.Equal(12, gridValue.Column);
@@ -253,7 +253,7 @@ namespace TechnicalTest.Core.Tests.Services
         {
             var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(0, 0), new Coordinate(0, 0));
 
-            var gridValue = _shapeService.IsValidShape(triangle);
+            var gridValue = _triangleService.IsValidTriangle(triangle);
 
             Assert.False(gridValue);
         }
@@ -263,7 +263,7 @@ namespace TechnicalTest.Core.Tests.Services
         {
             var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(10, 0), new Coordinate(20, 0));
 
-            var gridValue = _shapeService.IsValidShape(triangle);
+            var gridValue = _triangleService.IsValidTriangle(triangle);
 
             Assert.False(gridValue);
         }
@@ -273,7 +273,7 @@ namespace TechnicalTest.Core.Tests.Services
         {
             var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(0, 10), new Coordinate(10, 10)); 
 
-            var gridValue = _shapeService.IsValidShape(triangle);
+            var gridValue = _triangleService.IsValidTriangle(triangle);
 
             Assert.True(gridValue);
         }
@@ -283,7 +283,7 @@ namespace TechnicalTest.Core.Tests.Services
         {
             var triangle = new Triangle(new Coordinate(20, 30), new Coordinate(20, 40), new Coordinate(30, 40));
 
-            var gridValue = _shapeService.IsValidShape(triangle);
+            var gridValue = _triangleService.IsValidTriangle(triangle);
 
             Assert.True(gridValue);
         }
@@ -293,7 +293,7 @@ namespace TechnicalTest.Core.Tests.Services
         {
             var triangle = new Triangle(new Coordinate(20, 30), new Coordinate(30, 30), new Coordinate(30, 40));
 
-            var gridValue = _shapeService.IsValidShape(triangle);
+            var gridValue = _triangleService.IsValidTriangle(triangle);
 
             Assert.True(gridValue);
         }
@@ -303,7 +303,7 @@ namespace TechnicalTest.Core.Tests.Services
         {
             var triangle = new Triangle(new Coordinate(50, 50), new Coordinate(60, 50), new Coordinate(60, 60));
 
-            var gridValue = _shapeService.IsValidShape(triangle);
+            var gridValue = _triangleService.IsValidTriangle(triangle);
 
             Assert.True(gridValue);
         }
@@ -314,7 +314,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(0, 0), new Coordinate(0, 0));
 
-            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+            var gridValue = _triangleService.ProcessGridValue(grid, triangle);
 
             Assert.Null(gridValue);
         }
@@ -325,7 +325,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(10, 0), new Coordinate(20, 0));
 
-            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+            var gridValue = _triangleService.ProcessGridValue(grid, triangle);
 
             Assert.Null(gridValue);
         }
@@ -336,7 +336,7 @@ namespace TechnicalTest.Core.Tests.Services
             var grid = new Grid(10);
             var triangle = new Triangle(new Coordinate(0, 10), new Coordinate(0, 10), new Coordinate(20, 0));
 
-            var gridValue = _shapeService.ProcessGridValueFromTriangularShape(grid, triangle);
+            var gridValue = _triangleService.ProcessGridValue(grid, triangle);
 
             Assert.Null(gridValue);
         }

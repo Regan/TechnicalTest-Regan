@@ -3,9 +3,9 @@ using TechnicalTest.Core.Models;
 
 namespace TechnicalTest.Core.Services
 {
-    public class ShapeService : IShapeService
+    public class TriangleService : IShapeService
     {
-        public Shape ProcessTriangle(Grid grid, GridValue gridValue)
+        public Shape ProcessShape(Grid grid, GridValue gridValue)
         {
             Coordinate topLeftVertex, outerVertex, bottomRightVertex;
             const int adjustPosition = 1;
@@ -29,14 +29,15 @@ namespace TechnicalTest.Core.Services
             return new Triangle(topLeftVertex, outerVertex, bottomRightVertex);
         }
 
-        public GridValue ProcessGridValueFromTriangularShape(Grid grid, Triangle triangle)
+        public GridValue ProcessGridValue(Grid grid, Shape shape)
         {
-
-            bool isValid = IsValidShape(triangle);
-
-            if (!isValid)
+            var triangle = new Triangle(shape.Coordinates[ListVertexPositions.TopLeftVertexPos],
+                shape.Coordinates[ListVertexPositions.OuterVertexPos],
+                shape.Coordinates[ListVertexPositions.BottomRightVertex]);
+            
+            if (!IsValidTriangle(triangle))
             {
-                return null!;
+                return null;
             }
 
             // bottom right vertex will always give us row.
@@ -60,8 +61,9 @@ namespace TechnicalTest.Core.Services
                 firstValue = triangle.OuterVertex.X;
                 secondValue = triangle.TopLeftVertex.X;
             }
+
             var columnValue = firstValue * 2 / grid.Size;
-            
+
             // if second value greater than first + 1, this happens if the column is supposed to be an odd num.
             if (secondValue > firstValue)
             {
@@ -71,13 +73,8 @@ namespace TechnicalTest.Core.Services
             return new GridValue(rowLetterValue, columnValue);
         }
 
-        public bool IsValidShape(Triangle triangle)
+        public bool IsValidTriangle(Triangle triangle)
         {
-            if (triangle.Coordinates.Count != 3)
-            {
-                return false;
-            }
-        
             // calculates the area of the triangle. uses shoelace formula.
             var result = triangle.TopLeftVertex.X * (triangle.OuterVertex.Y - triangle.BottomRightVertex.Y) +
                          triangle.OuterVertex.X * (triangle.BottomRightVertex.Y - triangle.TopLeftVertex.Y) +

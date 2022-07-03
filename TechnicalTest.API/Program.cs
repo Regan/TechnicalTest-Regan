@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen(c =>
     c.IncludeXmlComments(xmlPath);
 });
 
-builder.Services.AddScoped<IShapeService, ShapeService>();
+builder.Services.AddScoped<IShapeService, TriangleService>();
 builder.Services.AddScoped<IShapeFactory, ShapeFactory>();
 
 
