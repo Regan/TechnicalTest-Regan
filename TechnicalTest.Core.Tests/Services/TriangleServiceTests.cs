@@ -334,14 +334,23 @@ namespace TechnicalTest.Core.Tests.Services
         public void GivenStraightYLineCoordinatesWhenProcessingGridValueThenGridValueIsInvalid()
         {
             var grid = new Grid(10);
-            var triangle = new Triangle(new Coordinate(0, 10), new Coordinate(0, 10), new Coordinate(20, 0));
+            var triangle = new Triangle(new Coordinate(0, 0), new Coordinate(0, 10), new Coordinate(0, 20));
 
             var gridValue = _triangleService.ProcessGridValue(grid, triangle);
 
             Assert.Null(gridValue);
         }
-        
-        
+
+        [Fact]
+        public void GivenDiagonalLineCoordinatesWhenProcessingGridValueThenGridValueIsInvalid()
+        {
+            var grid = new Grid(10);
+            var triangle = new Triangle(new Coordinate(0, 10), new Coordinate(0, 10), new Coordinate(10, 0));
+
+            var gridValue = _triangleService.ProcessGridValue(grid, triangle);
+
+            Assert.Null(gridValue);
+        }
         
     }
 }
