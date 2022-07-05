@@ -34,7 +34,7 @@ namespace TechnicalTest.Core.Services
             var triangle = new Triangle(shape.Coordinates[ListVertexPositions.TopLeftVertexPos],
                 shape.Coordinates[ListVertexPositions.OuterVertexPos],
                 shape.Coordinates[ListVertexPositions.BottomRightVertex]);
-            
+
             if (!IsValidShape(triangle))
             {
                 return null;
@@ -43,31 +43,15 @@ namespace TechnicalTest.Core.Services
             // bottom right vertex will always give us row.
             int rowLetterValue = triangle.BottomRightVertex.Y / grid.Size;
 
-            int firstValue;
-            int secondValue;
-            // find matching X values
+            int columnValue;
+            // if topLeftX == OuterX odd number. 
             if (triangle.TopLeftVertex.X == triangle.OuterVertex.X)
             {
-                firstValue = triangle.TopLeftVertex.X;
-                secondValue = triangle.BottomRightVertex.X;
-            }
-            else if (triangle.TopLeftVertex.X == triangle.BottomRightVertex.X)
-            {
-                firstValue = triangle.TopLeftVertex.X;
-                secondValue = triangle.OuterVertex.X;
+                columnValue = triangle.OuterVertex.X * 2 / grid.Size + 1;
             }
             else
             {
-                firstValue = triangle.OuterVertex.X;
-                secondValue = triangle.TopLeftVertex.X;
-            }
-
-            var columnValue = firstValue * 2 / grid.Size;
-
-            // if second value greater than first + 1, this happens if the column is supposed to be an odd num.
-            if (secondValue > firstValue)
-            {
-                columnValue += 1;
+                columnValue = triangle.OuterVertex.X * 2 / grid.Size;
             }
 
             return new GridValue(rowLetterValue, columnValue);
